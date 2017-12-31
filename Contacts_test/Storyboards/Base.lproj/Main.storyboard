@@ -14,7 +14,7 @@
         <!--Contacts-->
         <scene sceneID="inh-QG-oMs">
             <objects>
-                <tableViewController id="atH-ms-aQ5" sceneMemberID="viewController">
+                <tableViewController id="atH-ms-aQ5" customClass="ContactListTableViewController" customModule="Contacts_test" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Lac-xF-hch">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
