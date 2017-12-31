@@ -18,9 +18,21 @@ class ContactListTableViewController: UITableViewController {
         }
     }
     
+    // FilteredContacts
+    var filteredContacts = [Contact]()
+    
+    // Search controller
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Setup search controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Seach contacts"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         
         ContactController.getContact { (contacts) in
             self.contacts = contacts.sorted(by: { (contactA, contactB) -> Bool in
@@ -29,6 +41,27 @@ class ContactListTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Private methods
+    
+    // Returns true if text is empty or nil
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchTerm(_ searchTerm: String) {
+        filteredContacts = contacts.filter({ (contact) -> Bool in
+            return contact.lastName.lowercased().contains(searchTerm.lowercased()) || contact.firstName.lowercased().contains(searchTerm.lowercased())
+        })
+        
+        tableView.reloadData()
+    }
+    
+    // Returns status if searchController is active and searchBar is not empty
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -36,17 +69,22 @@ class ContactListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        if isFiltering() {
+            return filteredContacts.count
+        } else {
+            return contacts.count
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
         
-        let contact = contacts[indexPath.row]
+        let contact = isFiltering() ? filteredContacts[indexPath.row] : contacts[indexPath.row]
         
         // Configure the cell...
-        cell.textLabel?.text = "\(indexPath.row + 1) \(contact.lastName) \(contact.firstName)"
+        cell.textLabel?.text = "\(contact.lastName) \(contact.firstName)"
         
         return cell
     }
@@ -59,7 +97,18 @@ class ContactListTableViewController: UITableViewController {
             let indexPath = tableView.indexPathForSelectedRow,
             let destinationVC = segue.destination as? ContactDetailTableViewController {
             
-            destinationVC.contact = contacts[indexPath.row]
+            destinationVC.contact = isFiltering() ? filteredContacts[indexPath.row] : contacts[indexPath.row]
+            
+        }
+    }
+}
+
+extension ContactListTableViewController: UISearchResultsUpdating {
+    
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchTerm = searchController.searchBar.text {
+            filterContentForSearchTerm(searchTerm)
         }
     }
 }

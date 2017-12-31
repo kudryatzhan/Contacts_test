@@ -57,7 +57,7 @@
             </objects>
             <point key="canvasLocation" x="903" y="200"/>
         </scene>
-        <!--(contact name)-->
+        <!--(contact ip address)-->
         <scene sceneID="Utz-1f-BYh">
             <objects>
                 <tableViewController id="IMO-pY-Qbn" customClass="ContactDetailTableViewController" customModule="Contacts_test" customModuleProvider="target" sceneMemberID="viewController">
@@ -189,7 +189,7 @@
                             <outlet property="delegate" destination="IMO-pY-Qbn" id="J3g-0o-jVK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="(contact name)" id="ztm-hg-6lD"/>
+                    <navigationItem key="navigationItem" title="(contact ip address)" id="ztm-hg-6lD"/>
                     <connections>
                         <outlet property="companyNameLabel" destination="OjR-Xd-kgm" id="TGt-fd-Wk5"/>
                         <outlet property="emailLabel" destination="WIb-qa-c4R" id="eSj-T2-Cek"/>
