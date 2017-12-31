@@ -13,13 +13,18 @@ class ContactListTableViewController: UITableViewController {
     var contacts = [Contact]() {
         didSet {
             DispatchQueue.main.async {
+                self.createContactsDictionary()
                 self.tableView.reloadData()
             }
         }
     }
     
-    // FilteredContacts
+    // Filtered Contacts
     var filteredContacts = [Contact]()
+    
+    // Contacts indexes
+    var contactsDictionary = [String: [Contact]]()
+    var contactSectionTitles = [String]()
     
     // Search controller
     let searchController = UISearchController(searchResultsController: nil)
@@ -61,34 +66,78 @@ class ContactListTableViewController: UITableViewController {
         return searchController.isActive && !searchBarIsEmpty()
     }
     
+    // MARK: - Helper methods
+    func createContactsDictionary() {
+        for contact in contacts {
+            // Get the first letter of contact's last name
+            let firstLetterIndex = contact.lastName.startIndex
+            let contactKey = String(contact.lastName[firstLetterIndex])
+            
+            if var contactValues = contactsDictionary[contactKey] {
+                contactValues.append(contact)
+                contactsDictionary[contactKey] = contactValues
+            } else {
+                contactsDictionary[contactKey] = [contact]
+            }
+        }
+        
+        // Get section titles from dictionary's keys and sort ascending
+        contactSectionTitles = [String](contactsDictionary.keys)
+        contactSectionTitles = contactSectionTitles.sorted { $0 < $1 }
+    }
+    
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        
+        return isFiltering() ? 1 : contactSectionTitles.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return isFiltering() ? nil : contactSectionTitles[section]
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {
             return filteredContacts.count
         } else {
-            return contacts.count
+            let contactKey = contactSectionTitles[section]
+            guard let contactValues = contactsDictionary[contactKey] else { return 0 }
+            
+            return contactValues.count
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
         
-        let contact = isFiltering() ? filteredContacts[indexPath.row] : contacts[indexPath.row]
-        
         // Configure the cell...
-        cell.textLabel?.text = "\(contact.lastName) \(contact.firstName)"
+        
+        if isFiltering() {
+            let contact = filteredContacts[indexPath.row]
+            cell.textLabel?.text = "\(contact.lastName) \(contact.firstName)"
+        } else {
+            let contactKey = contactSectionTitles[indexPath.section]
+            if let contactValues = contactsDictionary[contactKey] {
+                let contact = contactValues[indexPath.row]
+                cell.textLabel?.text = "\(contact.lastName) \(contact.firstName)"
+            }
+        }
         
         return cell
     }
     
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return isFiltering() ? nil : contactSectionTitles
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let headerView = view as! UITableViewHeaderFooterView
+        
+        headerView.textLabel?.font = UIFont(name: "Avenir", size: 22.0)
+    }
     
     // MARK: - Navigation
     
@@ -97,8 +146,13 @@ class ContactListTableViewController: UITableViewController {
             let indexPath = tableView.indexPathForSelectedRow,
             let destinationVC = segue.destination as? ContactDetailTableViewController {
             
-            destinationVC.contact = isFiltering() ? filteredContacts[indexPath.row] : contacts[indexPath.row]
-            
+            if isFiltering() {
+                destinationVC.contact = filteredContacts[indexPath.row]
+            } else {
+                let contactKey = contactSectionTitles[indexPath.section]
+                let contact = contactsDictionary[contactKey]?[indexPath.row]
+                destinationVC.contact = contact
+            }
         }
     }
 }
