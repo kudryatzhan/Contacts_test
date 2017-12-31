@@ -9,48 +9,47 @@
 import UIKit
 
 class ContactListTableViewController: UITableViewController {
+    
+    var contacts = [Contact]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
         
         ContactController.getContact { (contacts) in
-            print(contacts.count)
+            self.contacts = contacts.sorted(by: { (contactA, contactB) -> Bool in
+                return contactA.lastName < contactB.lastName
+            })
         }
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return contacts.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
+        
+        let contact = contacts[indexPath.row]
 
         // Configure the cell...
+        cell.textLabel?.text = "\(indexPath.row + 1) \(contact.lastName) \(contact.firstName)"
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
