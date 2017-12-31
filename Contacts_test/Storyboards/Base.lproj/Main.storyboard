@@ -42,7 +42,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="IMO-pY-Qbn" kind="show" id="II8-gX-fhj"/>
+                                    <segue destination="IMO-pY-Qbn" kind="show" identifier="toContactDetailVC" id="II8-gX-fhj"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -60,7 +60,7 @@
         <!--(contact name)-->
         <scene sceneID="Utz-1f-BYh">
             <objects>
-                <tableViewController id="IMO-pY-Qbn" sceneMemberID="viewController">
+                <tableViewController id="IMO-pY-Qbn" customClass="ContactDetailTableViewController" customModule="Contacts_test" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rif-Q8-bxB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,7 +75,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZPz-ur-3O5">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZPz-ur-3O5">
                                                     <rect key="frame" x="92" y="8" width="191" height="102"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ZPz-ur-3O5" secondAttribute="height" multiplier="15:8" id="gvq-rM-Byx"/>
@@ -190,6 +190,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="(contact name)" id="ztm-hg-6lD"/>
+                    <connections>
+                        <outlet property="companyNameLabel" destination="OjR-Xd-kgm" id="TGt-fd-Wk5"/>
+                        <outlet property="emailLabel" destination="WIb-qa-c4R" id="eSj-T2-Cek"/>
+                        <outlet property="fullNameLabel" destination="az1-49-FE6" id="q6m-3C-Tn7"/>
+                        <outlet property="jobPositionLabel" destination="n0L-ge-Liz" id="Q5M-12-gh7"/>
+                        <outlet property="photoImageView" destination="ZPz-ur-3O5" id="HOo-jI-daY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ipv-ec-E0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

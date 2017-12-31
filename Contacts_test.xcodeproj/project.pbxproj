@@ -16,6 +16,7 @@
 		B28EE3801FF9597B00100003 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EE37F1FF9597B00100003 /* Contact.swift */; };
 		B28EE3821FF95B2700100003 /* ContactController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28EE3811FF95B2700100003 /* ContactController.swift */; };
 		B2F951AD1FF95D6200937762 /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F951AC1FF95D6200937762 /* ContactListTableViewController.swift */; };
+		B2F951AF1FF9631900937762 /* ContactDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F951AE1FF9631900937762 /* ContactDetailTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		B28EE37F1FF9597B00100003 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		B28EE3811FF95B2700100003 /* ContactController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactController.swift; sourceTree = "<group>"; };
 		B2F951AC1FF95D6200937762 /* ContactListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
+		B2F951AE1FF9631900937762 /* ContactDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				B2F951AC1FF95D6200937762 /* ContactListTableViewController.swift */,
+				B2F951AE1FF9631900937762 /* ContactDetailTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				B24446AF1FF9540A00D132AD /* AppDelegate.swift in Sources */,
 				B2F951AD1FF95D6200937762 /* ContactListTableViewController.swift in Sources */,
 				B28EE3821FF95B2700100003 /* ContactController.swift in Sources */,
+				B2F951AF1FF9631900937762 /* ContactDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kudryatzhan Arziyev. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ContactController {
     
@@ -18,8 +18,6 @@ class ContactController {
         
         // url
         guard let requestUrl = baseURL?.appendingPathComponent("5a488f243000004c15c3c57e") else { completion([]); return }
-    
-        print(requestUrl)
         
         // request
         var request = URLRequest(url: requestUrl)
@@ -44,6 +42,34 @@ class ContactController {
             completion(contacts)
         }
         
+        dataTask.resume()
+    }
+    
+    // static function for images
+    static func image(forURLAsString urlAsString: String, completion: @escaping (UIImage?) -> Void) {
+        
+        // url
+        guard let requestURL = URL(string: urlAsString) else { completion(nil); return }
+        
+        // request
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "GET"
+        request.httpBody = nil
+        
+        // data task
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let data = data else { completion(nil); return }
+            
+            let image = UIImage(data: data)
+            completion(image)
+        }
         dataTask.resume()
     }
 }
