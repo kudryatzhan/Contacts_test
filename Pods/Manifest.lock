@@ -1,0 +1,12 @@
+PODS:
+  - SimpleImageViewer (1.1.1)
+
+DEPENDENCIES:
+  - SimpleImageViewer (~> 1.1.1)
+
+SPEC CHECKSUMS:
+  SimpleImageViewer: 34c3a2cde2d9ac022146772cefc27fca14b0c8b1
+
+PODFILE CHECKSUM: fb7efb7481c51ce286c5b9715e7c936b322ff267
+
+COCOAPODS: 1.2.0

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SimpleImageViewer
 
 class ContactDetailTableViewController: UITableViewController {
     
@@ -38,4 +39,16 @@ class ContactDetailTableViewController: UITableViewController {
             }
         }
     }
+    
+    @IBAction func photoImageViewTapped(_ sender: UITapGestureRecognizer) {
+        
+        let configuration = ImageViewerConfiguration { config in
+            config.imageView = photoImageView
+        }
+        
+        let imageViewerController = ImageViewerController(configuration: configuration)
+        
+        present(imageViewerController, animated: true)
+    }
+    
 }
