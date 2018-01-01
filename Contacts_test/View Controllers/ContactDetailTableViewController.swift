@@ -17,16 +17,18 @@ class ContactDetailTableViewController: UITableViewController {
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var jobPositionLabel: UILabel!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var genderLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let contact = contact else { return }
         
-        self.title = contact.ipAddress
+        self.title = contact.firstName
         
         fullNameLabel.text = "\(contact.lastName) \(contact.firstName)"
         emailLabel.text = contact.email
+        genderLabel.text = contact.gender
         companyNameLabel.text = contact.employment["name"]
         jobPositionLabel.text = contact.employment["position"]
         

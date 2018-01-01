@@ -22,6 +22,7 @@ class ContactListTableViewController: UITableViewController {
     // Filtered Contacts
     var filteredContacts = [Contact]()
     
+    
     // Contacts indexes
     var contactsDictionary = [String: [Contact]]()
     var contactSectionTitles = [String]()
@@ -136,8 +137,10 @@ class ContactListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let headerView = view as! UITableViewHeaderFooterView
         
+        headerView.textLabel?.textColor = UIColor.purple
         headerView.textLabel?.font = UIFont(name: "Avenir", size: 22.0)
     }
+
     
     // MARK: - Navigation
     
@@ -155,6 +158,7 @@ class ContactListTableViewController: UITableViewController {
             }
         }
     }
+    
 }
 
 extension ContactListTableViewController: UISearchResultsUpdating {
